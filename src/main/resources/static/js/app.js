@@ -1,7 +1,7 @@
 const API_URL = "/recipes";
 
 const CATEGORY_IMAGES = {
-    STYRKA: "images/styrka.jpg",
+    STYRKA: "images/styrka.webp",
     ATERHAMTNING: "images/aterhamtning.jpg",
     VIKTNEDGANG: "images/viktnedgang.jpg",
     UTHALLIGHET: "images/uthallighet.jpg"
