@@ -22,8 +22,9 @@ jobs:
 
       - name: Installera Playwrights webblasare
         run: |
-          mvn compile
-          mvn exec:java -e -D exec.mainClass=com.microsoft.playwright.CLI -D exec.args="install --with-deps chromium"
+         mvn test-compile
+         mvn exec:java -e "-Dexec.mainClass=com.microsoft.playwright.CLI" "-Dexec.args=install --with-deps chromium" "-Dexec.classpathScope=test"
 
       - name: Bygg och kor tester
         run: mvn clean verify
+
