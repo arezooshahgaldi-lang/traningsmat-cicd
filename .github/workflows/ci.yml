@@ -20,5 +20,10 @@ jobs:
           java-version: '17'
           cache: maven
 
+      - name: Installera Playwrights webblasare
+        run: |
+          mvn compile
+          mvn exec:java -e -D exec.mainClass=com.microsoft.playwright.CLI -D exec.args="install --with-deps chromium"
+
       - name: Bygg och kor tester
         run: mvn clean verify
