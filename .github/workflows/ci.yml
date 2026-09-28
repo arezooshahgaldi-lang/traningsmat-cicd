@@ -28,3 +28,19 @@ jobs:
       - name: Bygg och kor tester
         run: mvn clean verify
 
+deploy-dev:
+  needs: build-and-test
+  runs-on: ubuntu-latest
+  if: github.ref == 'refs/heads/dev' && github.event_name == 'push'
+  steps:
+    - name: Trigga driftsattning till Render (dev)
+      run: curl -X POST "${{ secrets.RENDER_DEPLOY_HOOK_DEV }}"
+
+  deploy-prod:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    steps:
+      - name: Trigga driftsattning till Render (prod)
+        run: curl -X POST "${{ secrets.RENDER_DEPLOY_HOOK_PROD }}"
+
