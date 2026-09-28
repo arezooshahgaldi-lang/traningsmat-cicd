@@ -22,19 +22,19 @@ jobs:
 
       - name: Installera Playwrights webblasare
         run: |
-         mvn test-compile
-         mvn exec:java -e "-Dexec.mainClass=com.microsoft.playwright.CLI" "-Dexec.args=install --with-deps chromium" "-Dexec.classpathScope=test"
+          mvn test-compile
+          mvn exec:java -e "-Dexec.mainClass=com.microsoft.playwright.CLI" "-Dexec.args=install --with-deps chromium" "-Dexec.classpathScope=test"
 
       - name: Bygg och kor tester
         run: mvn clean verify
 
-deploy-dev:
-  needs: build-and-test
-  runs-on: ubuntu-latest
-  if: github.ref == 'refs/heads/dev' && github.event_name == 'push'
-  steps:
-    - name: Trigga driftsattning till Render (dev)
-      run: curl -X POST "${{ secrets.RENDER_DEPLOY_HOOK_DEV }}"
+  deploy-dev:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/dev' && github.event_name == 'push'
+    steps:
+      - name: Trigga driftsattning till Render (dev)
+        run: curl -X POST "${{ secrets.RENDER_DEPLOY_HOOK_DEV }}"
 
   deploy-prod:
     needs: build-and-test
@@ -43,4 +43,3 @@ deploy-dev:
     steps:
       - name: Trigga driftsattning till Render (prod)
         run: curl -X POST "${{ secrets.RENDER_DEPLOY_HOOK_PROD }}"
-
