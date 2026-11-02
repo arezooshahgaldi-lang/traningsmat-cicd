@@ -74,7 +74,9 @@ class RecipeE2ETest {
 
         assertThat(page.locator("#recipe-list")).containsText("Tillfalligt recept");
 
-        page.click("button:has-text('Ta bort')");
+                page.locator(".recipe-card", new Page.LocatorOptions().setHasText("Tillfalligt recept"))
+                  .locator("button:has-text('Ta bort')")
+                  .click();
 
         assertThat(page.locator("#recipe-list")).not().containsText("Tillfalligt recept");
     }
